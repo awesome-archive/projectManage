@@ -1,124 +1,105 @@
-import $http from '../assets/js/http'
+import $http from '@/assets/js/http'
 
-export async function Login({account, password, remember = false}) {
-    return $http.post('User_User.Login', {
-        account,
-        password,
-        remember
-    });
+export async function Login(data) {
+    return $http.post('project/login', data);
 }
 
-export function getUser(user_id) {
-    return $http.post('User_User.getUser', {user_id: user_id});
+export function register(data) {
+    return $http.post('project/login/register', data);
 }
 
-export function changeUserState(id, state) {
-    return $http.post('User_User.changeState', {id: id, state: state});
+export function getCaptcha(mobile) {
+    return $http.post('project/login/getCaptcha', {mobile: mobile});
 }
 
-export function delUser(ids) {
-    return $http.post('User_User.delUser', {ids: ids});
+export function _getMailCaptcha(email) {
+    return $http.post('project/login/_getMailCaptcha', {email: email});
 }
 
-export function getUserList(page_size, page_num, keyword) {
-    return $http.post('User_User.getUserList', {page_size: page_size, page_num: page_num, keyword: keyword});
+export function _resetPasswordByMail(data) {
+    return $http.post('project/login/_resetPasswordByMail', data);
 }
 
-export function doUserInfo(action = 'add', data) {
-    let url = 'User_User.addUser';
-    if (action === 'edit') {
-        url = 'User_User.editUser'
+export function changeCurrentOrganization(organizationCode) {
+    return $http.post('project/index/changeCurrentOrganization', {organizationCode: organizationCode});
+}
+
+export function list(data) {
+    return $http.post('project/account', data);
+}
+
+export function forbid(accountCode) {
+    return $http.post('project/account/forbid', {accountCode: accountCode, status: 0});
+}
+
+export function resume(accountCode) {
+    return $http.post('project/account/resume', {accountCode: accountCode, status: 1});
+}
+
+export function doAccount(data) {
+    let url = 'project/account/add';
+    if (data.code) {
+        url = 'project/account/edit';
     }
     return $http.post(url, data);
 }
 
-export function getUserMenu() {
-    return $http.post('User_User.getUserMenu');
+export function auth(id, auth) {
+    return $http.post('project/account/auth', {id: id, auth: auth});
 }
 
-export function getUserAuth() {
-    return $http.post('User_User.getUserAuth');
+export function del(accountCode) {
+    return $http.post('project/account/del', {accountCode: accountCode});
 }
 
-export function getInfoByToken() {
-    return $http.post('User_User.getInfoByToken');
+export function info($id) {
+    return $http.post('project/index/info', {id: $id});
 }
 
-export function editUser(data) {
-    return $http.post('User_User.editUser', data);
+export function read(code) {
+    return $http.post('project/account/read', {code: code});
 }
 
-export function doUser(data) {
-    return $http.post('User.doUser', data);
+export function editAccount(data) {
+    return $http.post('project/account/edit', data);
 }
 
-export function changePassword(data) {
-    return $http.post('User_User.changePassword', data);
+export function editPersonal(data) {
+    return $http.post('project/index/editPersonal', data);
 }
 
-export function getPositionList(page_size, page_num = 1, keyword = '') {
-    return $http.post('User_Position.getList', {page_size: page_size, page_num: page_num, keyword: keyword});
+export function editPassword(data) {
+    return $http.post('project/index/editPassword', data);
 }
 
-export function getPositionInfo(position_id) {
-    return $http.post('User_Position.getInfo', {position_id: position_id});
+export function _bindMobile(data) {
+    return $http.post('project/login/_bindMobile', data);
 }
 
-export function getPositionUserList(position_id, page_size, page_num, keyword) {
-    return $http.post('User_Position.getUserList', {
-        position_id: position_id,
-        page_size: page_size,
-        page_num: page_num,
-        keyword: keyword
-    });
+export function _bindMail(data) {
+    return $http.post('project/login/_bindMail', data);
 }
 
-export function delPosition(ids) {
-    return $http.post('User_Position.delPosition', {ids: ids});
+export function _unbindDingtalk(data) {
+    return $http.post('project/login/_unbindDingtalk', data);
 }
 
-export function doPosition(action = 'add', data) {
-    let url = 'User_Position.addPosition';
-    if (action === 'edit') {
-        url = 'User_Position.editPosition'
-    }
-    return $http.post(url, data);
+export function _currentMember(data) {
+    return $http.post('project/login/_currentMember', data);
 }
 
-
-export function getUserLevelList(level_id, page_size, page_num, keyword) {
-    return $http.post('User_Level.getUserList', {
-        level_id: level_id,
-        page_size: page_size,
-        page_num: page_num,
-        keyword: keyword
-    });
+export function _checkBindMail(data) {
+    return $http.post('project/login/_checkBindMail', data);
 }
 
-export function getLevelList(page_size, page_num = 1, keyword = '') {
-    return $http.post('User_Level.getList', {page_size: page_size, page_num: page_num, keyword: keyword});
+export function _joinByInviteLink(inviteCode) {
+    return $http.post('project/account/_joinByInviteLink', {inviteCode: inviteCode});
 }
 
-export function delLevel(ids) {
-    return $http.post('User_Level.delLevel', {ids: ids});
+export function _checkLogin(data) {
+    return $http.post('project/login/_checkLogin', data);
 }
 
-export function getLevelInfo(level_id) {
-    return $http.post('User_Level.getInfo', {level_id: level_id});
-}
-
-export function doLevel(action = 'add', data) {
-    let url = 'User_Level.addLevel';
-    if (action === 'edit') {
-        url = 'User_Level.editLevel'
-    }
-    return $http.post(url, data);
-}
-
-export function getUserSetting(set_name) {
-    return $http.post('User_UserSetting_Setting.getSetting', {name: set_name});
-}
-
-export function doUserSetting(set_name, data) {
-    return $http.post('User_UserSetting_Setting.doSetting', {name: set_name, value: data});
+export function _out(data) {
+    return $http.post('project/login/_out', data);
 }
